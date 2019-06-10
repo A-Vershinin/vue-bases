@@ -14,19 +14,75 @@ const variants = [
   },
 ];
 
-const options = {
-  el: "#app",
-  data: {
-    brand: 'Vue Mastery',
-    product: "Socks",
-    selectedVariant: 0,
-    altText: 'Some description of socks',
-    imageLink: 'link',
-    imageTitle: 'Socks title',
-    details: ['80% cotton', '20% polyester', 'Gender-neutral'],
-    variants: variants,
-    cart: 0,
-    isSale: false,
+Vue.component('Product', {
+  template: `
+    <div class="product">
+      <div class="product-image">
+        <a
+          class="product-image-link"
+          v-bind:href="imageLink"
+        >
+          <img
+            width="200"
+            height="200"
+            v-bind:src="image"
+            v-bind:alt="altText"
+            v-bind:title="imageTitle"
+            :class="[ inStock ? 'active' : '' ]"
+          />
+        </a>
+      </div>
+
+      <div class="product-info">
+        <h1>{{ title }}</h1>
+        <p v-if="inStock">In Stock</p>
+        <p v-else :class="{ 'out-of-stock': !inStock }">Out of Stock</p>
+        <p>{{ onSale }}</p>
+
+        <ul>
+          <li v-for="detailItem in details">{{ detailItem }}</li>
+        </ul>
+
+        <div
+          class="color-box"
+          v-for="(variant, index) in variants"
+          :key="variant.id"
+          :style="{ backgroundColor: variant.color }"
+          @mouseover="updateProduct(index)"
+        ></div>
+
+      <div class="actions">
+
+
+        <button
+          v-on:click="addToCart"
+          :disabled="!inStock"
+          :class="{ disabledButton: !inStock }"
+        >Add to Cart</button>
+        <button @click="removeFromCart" :disabled="!inStock">Remove from Cart</button>
+
+        <div class="cart">
+          <p>
+            Cart({{ cart }})
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+  `,
+  data() {
+    return {
+      brand: 'Vue Mastery',
+      product: "Socks",
+      selectedVariant: 0,
+      altText: 'Some description of socks',
+      imageLink: 'link',
+      imageTitle: 'Socks title',
+      details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+      variants: variants,
+      cart: 0,
+      isSale: false,
+    }
   },
   methods: {
     addToCart(e) {
@@ -57,6 +113,10 @@ const options = {
       return condition ? onSaleText : notSaleText
     }
   }
+});
+
+const options = {
+  el: "#app",
 };
 
 const app = new Vue(options);
