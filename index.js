@@ -14,6 +14,20 @@ const variants = [
   },
 ];
 
+Vue.component('ProductDetails', {
+  props: {
+    details: {
+      type: Array,
+      required: true,
+    }
+  },
+  template: `
+    <ul>
+      <li v-for="detailItem in details">{{ detailItem }}</li>
+    </ul>
+  `,
+});
+
 Vue.component('Product', {
   props: {
     premium: {
@@ -46,9 +60,7 @@ Vue.component('Product', {
         <p>{{ onSale }}</p>
         <p>Shipping: {{ shipping }}</p>
 
-        <ul>
-          <li v-for="detailItem in details">{{ detailItem }}</li>
-        </ul>
+        <ProductDetails :details="details"></ProductDetails>
 
         <div
           class="color-box"
