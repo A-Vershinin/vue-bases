@@ -15,6 +15,12 @@ const variants = [
 ];
 
 Vue.component('Product', {
+  props: {
+    premium: {
+      type: Boolean,
+      required: true,
+    }
+  },
   template: `
     <div class="product">
       <div class="product-image">
@@ -38,6 +44,7 @@ Vue.component('Product', {
         <p v-if="inStock">In Stock</p>
         <p v-else :class="{ 'out-of-stock': !inStock }">Out of Stock</p>
         <p>{{ onSale }}</p>
+        <p>Shipping: {{ shipping }}</p>
 
         <ul>
           <li v-for="detailItem in details">{{ detailItem }}</li>
@@ -111,12 +118,19 @@ Vue.component('Product', {
       const condition = !this.isSale && this.cart < 4;
 
       return condition ? onSaleText : notSaleText
+    },
+    shipping() {
+      // props premium
+      return this.premium ? 'Free' : 2.99;
     }
   }
 });
 
 const options = {
   el: "#app",
+  data: {
+    premium: false,
+  }
 };
 
 const app = new Vue(options);
