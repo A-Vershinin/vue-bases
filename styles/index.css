@@ -89,9 +89,9 @@ button {
 }
 
 input {
-  width: 100%;
+  width: 40%;
   height: 25px;
-  margin-bottom: 20px;
+  margin-top: 0;
 }
 
 textarea {
@@ -112,4 +112,19 @@ textarea {
 
 .row {
   width: 100%;
+}
+
+.height {
+  margin-bottom: 14px;
+}
+
+.height label {
+  width: 10%;
+  cursor: pointer;
+}
+
+.height label,
+.height input {
+  display: inline-block;
+  vertical-align: middle;
 }
