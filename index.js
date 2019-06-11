@@ -31,10 +31,10 @@ Vue.component('ProductDetails', {
 Vue.component('ProductReview', {
   template: `
     <form class="review-form" @submit.prevent="onSubmit">
-      <p class="error" >
+      <p class="error" v-if="errors.length">
         <b>Please correct the following error(s):</b>
         <ul>
-         <li>error item</li>
+          <li v-for="error in errors">{{ error }}</li>
         </ul>
       </p>
 
@@ -45,29 +45,19 @@ Vue.component('ProductReview', {
 
       <p>
         <label for="review">Review:</label>
-        <textarea id="review" required v-model="review"></textarea>
+        <textarea id="review" v-model="review"></textarea>
       </p>
 
       <p>
         <label for="rating">Rating:</label>
         <select id="rating" v-model.number="rating">
-        <option>5</option>
-        <option>4</option>
-        <option>3</option>
-        <option>2</option>
-        <option>1</option>
+          <option>5</option>
+          <option>4</option>
+          <option>3</option>
+          <option>2</option>
+          <option>1</option>
         </select>
       </p>
-
-      <p>Would you recommend this product?</p>
-      <label>
-        Yes
-        <input type="radio" value="Yes"/>
-      </label>
-      <label>
-        No
-        <input type="radio" value="No"/>
-      </label>
 
       <p>
         <input type="submit" value="Submit">
@@ -80,20 +70,27 @@ Vue.component('ProductReview', {
       name: null,
       review: null,
       rating: null,
+      errors: [],
     }
   },
   methods: {
     onSubmit() {
-      const productReview = {
-        name: this.name,
-        review: this.review,
-        rating: this.rating,
-      };
+      if(this.name && this.review && this.rating) {
+        const productReview = {
+          name: this.name,
+          review: this.review,
+          rating: this.rating,
+        };
 
-      this.$emit('review-submitted', productReview);
-      this.name = null;
-      this.review = null;
-      this.rating = null;
+        this.$emit('review-submitted', productReview);
+        this.name = null;
+        this.review = null;
+        this.rating = null;
+      } else {
+        if(!this.name) this.errors.push('Name required');
+        if(!this.review) this.errors.push('Review required');
+        if(!this.rating) this.errors.push('Rating required');
+      }
     }
   },
 });
