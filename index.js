@@ -110,6 +110,7 @@ Vue.component('Product', {
     },
     removeFromCart() {
       this.cart -= 1;
+      this.$emit('remote-from-cart', this.variants[this.selectedVariant].id)
     },
     updateProduct(index) {
       this.selectedVariant = index;
@@ -148,6 +149,11 @@ const options = {
   methods: {
     updateCart(id) {
       this.cart.push(id);
+    },
+    removeCart(id) {
+      const updatedCart = this.cart.filter(item => item !== id);
+
+      this.cart = [...updatedCart];
     }
   },
 };
