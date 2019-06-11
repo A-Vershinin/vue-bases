@@ -72,19 +72,15 @@ Vue.component('Product', {
 
       <div class="actions">
 
-
         <button
           v-on:click="addToCart"
           :disabled="!inStock"
           :class="{ disabledButton: !inStock }"
-        >Add to Cart</button>
+        >
+          Add to Cart
+        </button>
         <button @click="removeFromCart" :disabled="!inStock">Remove from Cart</button>
 
-        <div class="cart">
-          <p>
-            Cart({{ cart }})
-          </p>
-        </div>
         </div>
       </div>
     </div>
@@ -99,16 +95,21 @@ Vue.component('Product', {
       imageTitle: 'Socks title',
       details: ['80% cotton', '20% polyester', 'Gender-neutral'],
       variants: variants,
-      cart: 0,
+
       isSale: false,
     }
   },
   methods: {
     addToCart(e) {
-      this.cart += 1;
+      /*
+        если нужно поднять значение из компонента при клике на вверх, то используем
+        $emit с указываем имени метода. В нашем случае у компонента Product привязка
+         будет выглядеть как @add-to-cart="имя внешнего метода - updateCart".
+      */
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].id);
     },
     removeFromCart() {
-      this.cart -= 1
+      this.cart -= 1;
     },
     updateProduct(index) {
       this.selectedVariant = index;
@@ -142,7 +143,15 @@ const options = {
   el: "#app",
   data: {
     premium: false,
-  }
+    cart: [],
+  },
+  methods: {
+    updateCart(id) {
+      this.cart.push(id);
+    }
+  },
 };
+
+Vue.config.devtools = true;
 
 const app = new Vue(options);
