@@ -45,7 +45,7 @@ Vue.component('ProductReview', {
 
       <p>
         <label for="review">Review:</label>
-        <textarea id="review" v-model="review"></textarea>
+        <textarea id="review" required v-model="review"></textarea>
       </p>
 
       <p>
@@ -155,12 +155,13 @@ Vue.component('Product', {
       </div>
 
       <div class="row">
-        <p>There are no reviews yet.</p>
+        <h2>Reviews</h2>
+        <p v-if="!reviews.length">There are no reviews yet.</p>
         <ul>
-          <li>
-            <p>review.name</p>
-            <p>Rating: review.rating</p>
-            <p>review.review</p>
+          <li v-for="review in reviews">
+            <p>{{ review.name }}</p>
+            <p>Rating: {{ review.rating }}</p>
+            <p>{{ review.review }}</p>
           </li>
         </ul>
       </div>
@@ -199,7 +200,6 @@ Vue.component('Product', {
       this.selectedVariant = index;
     },
     addReview(productReview) {
-      console.log('productReview:', productReview)
       this.reviews.push(productReview);
     }
   },
