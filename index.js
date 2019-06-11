@@ -30,7 +30,7 @@ Vue.component('ProductDetails', {
 
 Vue.component('ProductReview', {
   template: `
-    <form class="review-form">
+    <form class="review-form" @submit.prevent="onSubmit">
       <p class="error" >
         <b>Please correct the following error(s):</b>
         <ul>
@@ -40,17 +40,17 @@ Vue.component('ProductReview', {
 
       <p>
         <label for="name">Name:</label>
-        <input id="name">
+        <input id="name" v-model="name">
       </p>
 
       <p>
         <label for="review">Review:</label>
-        <textarea id="review"></textarea>
+        <textarea id="review" v-model="review"></textarea>
       </p>
 
       <p>
         <label for="rating">Rating:</label>
-        <select id="rating">
+        <select id="rating" v-model.number="rating">
         <option>5</option>
         <option>4</option>
         <option>3</option>
@@ -76,9 +76,26 @@ Vue.component('ProductReview', {
     </form>
   `,
   data() {
-    return {}
+    return {
+      name: null,
+      review: null,
+      rating: null,
+    }
   },
-  methods: {},
+  methods: {
+    onSubmit() {
+      const productReview = {
+        name: this.name,
+        review: this.review,
+        rating: this.rating,
+      };
+
+      this.$emit('review-submitted', productReview);
+      this.name = null;
+      this.review = null;
+      this.rating = null;
+    }
+  },
 });
 
 Vue.component('Product', {
@@ -148,7 +165,7 @@ Vue.component('Product', {
         </ul>
       </div>
 
-      <ProductReview></ProductReview>
+      <ProductReview @review-submitted="addReview"></ProductReview>
     </div>
   `,
   data() {
@@ -161,8 +178,8 @@ Vue.component('Product', {
       imageTitle: 'Socks title',
       details: ['80% cotton', '20% polyester', 'Gender-neutral'],
       variants: variants,
-
       isSale: false,
+      reviews: [],
     }
   },
   methods: {
@@ -180,6 +197,10 @@ Vue.component('Product', {
     },
     updateProduct(index) {
       this.selectedVariant = index;
+    },
+    addReview(productReview) {
+      console.log('productReview:', productReview)
+      this.reviews.push(productReview);
     }
   },
   computed: {
@@ -207,8 +228,6 @@ Vue.component('Product', {
 });
 
 
-
-
 const options = {
   el: "#app",
   data: {
@@ -223,7 +242,7 @@ const options = {
       const updatedCart = this.cart.filter(item => item !== id);
 
       this.cart = [...updatedCart];
-    }
+    },
   },
 };
 
