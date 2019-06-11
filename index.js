@@ -28,6 +28,59 @@ Vue.component('ProductDetails', {
   `,
 });
 
+Vue.component('ProductReview', {
+  template: `
+    <form class="review-form">
+      <p class="error" >
+        <b>Please correct the following error(s):</b>
+        <ul>
+         <li>error item</li>
+        </ul>
+      </p>
+
+      <p>
+        <label for="name">Name:</label>
+        <input id="name">
+      </p>
+
+      <p>
+        <label for="review">Review:</label>
+        <textarea id="review"></textarea>
+      </p>
+
+      <p>
+        <label for="rating">Rating:</label>
+        <select id="rating">
+        <option>5</option>
+        <option>4</option>
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+        </select>
+      </p>
+
+      <p>Would you recommend this product?</p>
+      <label>
+        Yes
+        <input type="radio" value="Yes"/>
+      </label>
+      <label>
+        No
+        <input type="radio" value="No"/>
+      </label>
+
+      <p>
+        <input type="submit" value="Submit">
+      </p>
+
+    </form>
+  `,
+  data() {
+    return {}
+  },
+  methods: {},
+});
+
 Vue.component('Product', {
   props: {
     premium: {
@@ -83,6 +136,19 @@ Vue.component('Product', {
 
         </div>
       </div>
+
+      <div class="row">
+        <p>There are no reviews yet.</p>
+        <ul>
+          <li>
+            <p>review.name</p>
+            <p>Rating: review.rating</p>
+            <p>review.review</p>
+          </li>
+        </ul>
+      </div>
+
+      <ProductReview></ProductReview>
     </div>
   `,
   data() {
@@ -140,6 +206,9 @@ Vue.component('Product', {
   }
 });
 
+
+
+
 const options = {
   el: "#app",
   data: {
@@ -157,7 +226,5 @@ const options = {
     }
   },
 };
-
-Vue.config.devtools = true;
 
 const app = new Vue(options);
