@@ -23,6 +23,12 @@ export default {
       color2: 'red',
       type: 'a',
       isVisible: false,
+      people: [{name: 'Vlad', age: 20 }, {name: 'Max', age: 25}, {name: 'Elena', age: 30}],
+      person: {
+        id: 1,
+        firstname: "Pit",
+        lastName: "Harinkton",
+      },
     }
   },
   computed: {
@@ -60,6 +66,10 @@ export default {
     alertValue(evt) {
       alert(evt.target.value);
     },
+    addNewTodo(todoItem) {
+      this.todos.push(todoItem);
+      this.newTodoText = '';
+    }
   }
 }
 </script>
@@ -147,8 +157,32 @@ export default {
       </template>
       <button type="button" @click="isVisible = !isVisible">isActive</button>
     </div>
+    <hr style="height: 10px; background: #ccc;"/>
+      <p>
+        <h5>Рендер свойст в список из массива объектов v-for</h5>
+        <ul>
+          <li v-for="(person, index) of people" :key="index">
+            {{ index + 1 }}.
+            {{ person.name }}
+            <b>{{ person.age }}</b>
+          </li>
+        </ul>
 
+        <hr />
 
+        <h5>Рендер свойст из объекта через v-for</h5>
+        <ul>
+          <li v-for="value in person">{{ value }}</li>
+        </ul>
+
+        <h5>Рендер свойст из объекта c ключами и индексом через v-for</h5>
+        <ul>
+          <li v-for="(value, key, index) in person">
+            <em>{{ index + 1 }} </em>
+            <b>{{ key }}: </b>{{ value }}
+          </li>
+        </ul>
+      </p>
     </p>
     <hr />
   </div>
