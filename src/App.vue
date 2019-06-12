@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <BaseExamples />
+    <BaseExample />
 
   </div>
 </template>
@@ -8,7 +8,7 @@
 <!-- <TodoList v-bind:list="groceryList" /> -->
 
 <script>
-import BaseExamples from './components/BaseExamples.vue';
+import BaseExample from './components/BaseExample.vue';
 import TodoList from './components/TodoList.vue';
 
 const arrGrocery = [
@@ -25,7 +25,7 @@ export default {
     }
   },
   components: {
-    BaseExamples,
+    BaseExample,
   },
 }
 </script>
