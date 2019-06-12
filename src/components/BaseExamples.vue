@@ -26,6 +26,15 @@ export default {
       return this.counter > 3 ? 'More than 3' : 'Less than 3';
     }
   },
+  watch: {
+    /*
+      в watch указываем такое же имя переменной за которой watch будет следить,
+      по умолчанию приходит аргумент приходит значение текущей переменной 
+    */
+    counter(value) {
+      console.log('From watch object:', value);
+    }
+  }
 }
 </script>
 
