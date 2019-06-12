@@ -1,18 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <BaseExamples msg="Welcome to Your Vue.js App"/>
+
   </div>
 </template>
 
+<!-- <TodoList v-bind:list="groceryList" /> -->
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BaseExamples from './components/BaseExamples.vue';
+import TodoList from './components/TodoList.vue';
+
+const arrGrocery = [
+  { id: 0, text: 'Овощи' },
+  { id: 1, text: 'Сыр' },
+  { id: 2, text: 'Что там ещё люди едят?' }
+];
 
 export default {
   name: 'app',
+  data() {
+    return {
+      groceryList: [...arrGrocery],
+    }
+  },
   components: {
-    HelloWorld
-  }
+    BaseExamples,
+  },
 }
 </script>
 
