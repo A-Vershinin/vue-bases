@@ -1,8 +1,5 @@
 <script>
-// import Vue from 'vue';
 
-
-// export default Vue.component('Car', {
 export default {
   data() {
     return {
@@ -10,11 +7,6 @@ export default {
       carYear: 1920,
     }
   },
-  methods: {
-    add() {
-      this.counter++;
-    }
-  }
 }
 </script>
 
