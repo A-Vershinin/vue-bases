@@ -4,6 +4,7 @@
     <Car
       :carName="carName"
       :carYear="carYear"
+      :changeFunc="changeNamaParent"
       @nameChanged="carName = $event"
     />
   </div>
@@ -19,6 +20,11 @@ export default {
     return {
       carName: 'Ford',
       carYear: 1950,
+    }
+  },
+  methods: {
+    changeNamaParent(name) {
+      this.carName = 'Audi';
     }
   },
   components: {

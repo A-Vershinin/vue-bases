@@ -9,7 +9,8 @@ export default {
     carYear: {
       type: Number,
       required: true,
-    }
+    },
+    changeFunc: Function,
   },
   data() {
     return {}
@@ -33,6 +34,7 @@ export default {
     <h2>Name: {{ carName }} \ {{ reverseName }}</h2>
     <h3>Year: {{ carYear }}</h3>
     <button type="button" @click="onChangeName">Change Name</button>
+    <button type="button" @click="changeFunc">Change from Parent</button>
   </div>
 </template>
 
