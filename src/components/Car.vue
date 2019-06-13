@@ -1,28 +1,52 @@
 <script>
 
 export default {
-  data() {
-    return {
-      carName: 'My car!',
-      carYear: 1920,
+  /*
+    Несколько вариантов записи входящих пропсов и их валидация.
+    1. Просто указываем список имён входящих пропсов.
+    2. Указываем объект, где ключ имя пропса и значение это тип данных
+    3. Указываем объект, где ключ имя попроса и значение объект с настройками
+    данного проса: тип, required, default value/
+  */
+  // props: ['carName', 'carYear'],  // 1
+  // props: {                        // 2
+  //   carName: String,
+  //   carYear: Number,
+  // },
+  props: {
+    carName: {
+      type: String,
+      default: "Default name",
+    },
+    carYear: {
+      type: Number,
+      required: true,
     }
   },
+  data() {
+    return {}
+  },
+  computed: {
+    reverseName() {
+      return this.carName.split('').reverse().join('');
+    }
+  }
 }
 </script>
 
 <template>
-  <div>
-    <h2>Name {{ carName }}</h2>
-    <h3>Year {{ carYear }}</h3>
+  <div class="car">
+    <h2>Name: {{ carName }} \ {{ reverseName }}</h2>
+    <h3>Year: {{ carYear }}</h3>
   </div>
 </template>
 
 <style scoped>
-  h2 {
-    font-size: 18px;
+  .car {
+    border: 1px solid black;
   }
-  button {
-    padding: 20px;
-    margin: 20px;
+  .car h2 {
+    font-size: 18px;
+    color: orange;
   }
 </style>

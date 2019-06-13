@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
-    <Car />
-    <my-car></my-car>
+    <h1>Parent: {{ carName }}</h1>
+    <Car
+      :carName="carName"
+      :carYear="carYear"
+    />
   </div>
 </template>
 
@@ -10,22 +12,16 @@
 
 <script>
 import Car from './components/Car.vue';
-/*
-  Для использования других компонентов внутри какого-то их нужно регистрировать
-  в объекте components в текущем компненте.
-  Несколько вариантов как можно регистрировать имена компонентов и разный вид
-  в разметке темплейта.
-*/
 
 export default {
   data() {
     return {
-      msg: 'Hello, I am title!',
+      carName: 'Ford',
+      carYear: 1950,
     }
   },
   components: {
     Car,
-    myCar: Car,
   }
 }
 </script>
