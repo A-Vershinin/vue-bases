@@ -4,6 +4,7 @@
     <Car
       :carName="carName"
       :carYear="carYear"
+      @nameChanged="carName = $event"
     />
   </div>
 </template>
