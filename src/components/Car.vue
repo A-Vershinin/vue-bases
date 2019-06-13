@@ -10,6 +10,7 @@ export default {
       type: Number,
       required: true,
     },
+    counter: Number,
     changeFunc: Function,
   },
   data() {
@@ -24,10 +25,15 @@ export default {
     onChangeName() {
       this.carName = 'Mazda';
       this.$emit('nameChanged', this.carName)
+    },
+    updateCounter() {
+      this.$emit('counterUpdated', this.counter + 1);
     }
   }
 }
 </script>
+
+
 
 <template>
   <div class="car">
@@ -35,6 +41,7 @@ export default {
     <h3>Year: {{ carYear }}</h3>
     <button type="button" @click="onChangeName">Change Name</button>
     <button type="button" @click="changeFunc">Change from Parent</button>
+    <button type="button" @click="updateCounter">Update Counter</button>
   </div>
 </template>
 
