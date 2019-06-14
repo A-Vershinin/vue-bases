@@ -1,30 +1,18 @@
 <script>
-
+import ListMixin from './listMixin';
 
 export default {
   data() {
     return {
       title: 'Hello I am Vue!',
-      searchName: '',
-      names: ['Max', 'Elena', 'Igor', 'Kate'],
     }
-  },
-  /*
-    Пример фильтрации списка. Для таких задач используется
-    computed свойство, а не фильтры, т.к. работает медленнее.
-  */
-  computed: {
-    filteredNames() {
-      return this.names.filter(name => {
-        return name.toLowerCase().indexOf(this.searchName.toLowerCase()) !== -1;
-      })
-    },
   },
   filters: {
     lowercase(value) {
       return value.toLowerCase();
     }
   },
+  mixins: [ListMixin],
 };
 </script>
 
@@ -35,6 +23,8 @@ export default {
     <ul>
       <li v-for="name of filteredNames">{{ name }}</li>
     </ul>
+    <hr />
+    <List></List>
   </div>
 </template>
 
