@@ -1,107 +1,40 @@
 <script>
+import OneOff from './components/Oneoff.vue';
 
 export default {
   data() {
     return {
-      socials: ['vk'],
-      socialRadio: 'facebook',
-      socialsSelect: ['instagram', 'vk', 'facebook'],
-      selectedSocial: 'vk',
-      age: 20,
-      textareaValue: 'default text ',
+      switched: false,
     }
   },
-  watch: {
-    age(value) {
-      console.log('watch age:', value);
-    }
-  }
+  components: {
+    OneOff,
+  },
 };
+
 /*
-  Работа с чекбоксами отличается от других фреймворков.
-  Vue использует массив с значениями от value в инпутах и смотрит есть ли такое
-  значение или нет и отмечает выбранный чекбокс. Для уставноки чекбокса
-  по-умолчанию выбранным, нужно положить сразу значение в массив.
-
-  C радиокнопками подход другой. Выбранное значение может быть только одно и это
-  передаётся из value. Поэтому в директиву привызываем только переменную для
-  хранения значения из value. Атрибут name можно не использовать. Для выбора
-  по умолчанию баттона нужно в переменную сразу положить одно из трех значение.
-
-  Селекты. Значение по умолчанию задаётся на селекте через привязку к директиве.
-  Для инпутов с числами используем модификатор в директиве. Приводит значение к числу.
-
+  Пример как сделать свой кастомный контрол через директиву.
+  Есть компонент, в который прокидывает флаг и по флагу меняет класс.
+  В самом компоненте, вешает обработчики и привязывает метод свой onChange
+  с прокинутым значением. В самом методе берем значение которое приходит
+  при клике и прокидывает в $emit на событие 'input' c новым аргументом.
+  Срабатывает ивент 'input' и по ивенту меняется значение переменно value в ивенте.
+  Т.к. директива v-model по-умолчанию прокидывает пропс с таким же название value.
+  то меняет своё value и переменную switched, которая привязана к директиве в родителе.
+  Для наглядности показываем изменение состояния компонента.
 */
+
 </script>
-
-
 
 <template>
   <div id="app">
-    <h2>Form inputs: checkbox</h2>
-    <label>
-      <input type="checkbox" value="instagram" v-model="socials"> Instagram
-    </label>
+    <h2>Form inputs</h2>
+    <OneOff v-model="switched"></OneOff>
 
-    <label>
-      <input type="checkbox" value="vk" v-model="socials"> Vk
-    </label>
-
-    <label>
-      <input type="checkbox" value="facebook" v-model="socials"> Facebook
-    </label>
-
-    <ul>
-      <li v-for="item of socials">
-        {{ item }}
-      </li>
-    </ul>
-
-    <hr />
-
-    <h2> Form inputs: radio buttons</h2>
-    <label>
-      <input type="radio" value="instagram" v-model="socialRadio"> Instagram
-    </label>
-
-    <label>
-      <input type="radio" value="vk" v-model="socialRadio"> Vk
-    </label>
-
-    <label>
-      <input type="radio" value="facebook" v-model="socialRadio"> Facebook
-    </label>
-    <p>{{ socialRadio }}</p>
-
-    <hr />
-
-    <h2> Form inputs: selects</h2>
-    <select v-model="selectedSocial">
-      <option
-        v-for="item of socialsSelect"
-      >{{ item }}</option>
-    </select>
-
-    <p>
-      {{ selectedSocial }}
-    </p>
-
-    <hr />
-
-    <h2> Form inputs: input numbers </h2>
-    <input type="text" v-model.number="age">
-    <p>
-      {{ age }}
-    </p>
-
-    <hr />
-
-    <h2> Form inputs: textarea </h2>
-
-    <textarea v-model="textareaValue"></textarea>
-    <p>
-      {{ textareaValue }}
-    </p>
+    <div>
+      <h3 v-if="switched">Component is enabled</h3>
+      <h3 v-else>Component is disabled</h3>
+    </div>
   </div>
 </template>
 
