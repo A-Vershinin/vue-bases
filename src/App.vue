@@ -1,30 +1,35 @@
 <script>
-import ListMixin from './listMixin';
 
 export default {
   data() {
     return {
-      title: 'Hello I am Vue!',
+      searchName: '',
     }
   },
-  filters: {
-    lowercase(value) {
-      return value.toLowerCase();
-    }
-  },
-  mixins: [ListMixin],
 };
+
+/*
+ Модификатор lazy. Меняет событие, по которому меняется инпут.
+ Изначальное событие 'input' при привязке через директиву v-model.
+ С модификатором всплывающее событие меняется на то, какое действие было с
+ инпутом, фоокус, onChange и т.д и значение инпута меняется в момент когда
+ событие произошло.
+ Сейчас пример - печатаем текст в инпуте, поле в фокусе, после потери фокуса,
+ всплывает event 'onFocus' и тогда value инпута перезаписывается.
+ Такие оптимизации лучше для скорости работы.
+*/
+
 </script>
+
+
 
 <template>
   <div id="app">
-    <h2>{{ title }}</h2>
-    <input type="text"  v-model="searchName" />
-    <ul>
-      <li v-for="name of filteredNames">{{ name }}</li>
-    </ul>
-    <hr />
-    <List></List>
+    <h2>Form inputs</h2>
+    <input type="text" v-model.lazy="searchName" />
+    <p>
+       {{ searchName }}
+    </p>
   </div>
 </template>
 
@@ -33,9 +38,5 @@ export default {
   #app {
     text-align: center;
     margin-top: 60px;
-  }
-
-  h2 {
-    border: 1px solid black;
   }
 </style>
