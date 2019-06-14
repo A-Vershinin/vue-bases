@@ -14,17 +14,22 @@ export default {
 
 <template>
   <div class="car">
-    <h2>Name: Car</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed</p>
+    <slot></slot>
+    <hr  />
+    <hr  />
+    <slot name="text"></slot>
   </div>
 </template>
 
-<style>
+<style scoped>
   div {
     border: 1px solid black;
   }
-  .car h2 {
+  h2 {
     font-size: 18px;
     color: orange;
+  }
+  h3 {
+    color: green;
   }
 </style>
