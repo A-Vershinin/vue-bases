@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import ColorDerective from './color';
 
-// глобальная регистрация пользовательских директив
-// Vue.directive('colored', ColorDerective);
+Vue.filter('uppercase', (value) => value.toUpperCase());
 
 new Vue({
   render: h => h(App),
