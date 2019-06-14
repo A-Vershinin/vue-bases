@@ -1,4 +1,5 @@
 <script>
+import { eventEmitter } from '../main';
 
 export default {
   props: {
@@ -10,7 +11,6 @@ export default {
       type: Number,
       required: true,
     },
-    counter: Number,
     changeFunc: Function,
   },
   data() {
@@ -27,7 +27,15 @@ export default {
       this.$emit('nameChanged', this.carName)
     },
     updateCounter() {
-      this.$emit('counterUpdated', this.counter + 1);
+      /*
+        Пример когда нужно из одного ребёнка нужно прокинуть значение переменной
+        из обработчика в другого, но не поднямая значение через метод в компоненте
+        как в предыдущем случае, используем глобальную переменную eventEmitter.
+        Это объект с инстансом Vue, который умеет слушать события. У нас событие
+        называется 'counterUpdated'. Значение переменной попадает в параметры этого
+        ивента. ***Продолжение в Counter.
+      */
+      eventEmitter.$emit('counterUpdated', 3)
     }
   }
 }
