@@ -1,24 +1,6 @@
 export default {
-  /*
-    Передача аргументов в свою директиву. Значение берем из bindings.value.
-    Это значение переданное в нашу директиву v-colored="'green'".
-
-    Так же у директивы есть аргументы. Это значение указанное после двоеточия в
-    директиве. Пример v-colored:color="переменная". Имя аргумента `color` приходит
-    в параметр bindings.arg
-
-    Модификаторы директивы.
-    Пример модификатора v-one:click.prevent ="имя метода".
-    prevent - это модификатор директивы.
-    Имя модификатор приходит в bindings.modifiers Это объект с парами ключей
-    имя модификтора - true/false. Их может быть много.
-  */
   bind(el, bindings, vnode) {
-    console.log('bindings', bindings);
-
-    // el.style.color = bindings.value;
-
-
+    // console.log('bindings', bindings);
 
     const fontModifier = bindings.modifiers['font'];
 
