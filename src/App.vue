@@ -1,31 +1,18 @@
 <template>
   <div id="app">
-    <Counter />
-    <Car>
-      <h2>Mazda + html</h2>
-      <h3>Car name from parent: {{ carName }}</h3>
-      <p slot="text">
-        Text for slot with name `text`.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-      </p>
-    </Car>
+    <h2 v-colored>{{ title }}</h2>
   </div>
 </template>
 
 <script>
-import Car from "./components/Car.vue";
-import Counter from "./components/Counter.vue";
+
 
 export default {
   data() {
     return {
-      carName: 'Ford',
+      title: 'Hello I am Vue!',
     }
   },
-  components: {
-    Car,
-    Counter
-  }
 };
 </script>
 
@@ -34,7 +21,8 @@ export default {
     text-align: center;
     margin-top: 60px;
   }
-  h3 {
-    color: red;
+
+  h2 {
+    border: 1px solid black;
   }
 </style>

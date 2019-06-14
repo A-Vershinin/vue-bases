@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
+import ColorDerective from './color';
 
-Vue.config.productionTip = false
+/*
+  Пример создания своих пользовательских директив.
+  Директиру регистрируем глобально до вызова основного приложения в котором будет
+  использовать свою директиву. В методе directive указываем имя директиве и
+  объект с настройками директивы, объект.
+*/
 
-export const eventEmitter = new Vue();
+Vue.directive('colored', ColorDerective);
 
 new Vue({
   render: h => h(App),
