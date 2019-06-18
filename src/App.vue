@@ -9,10 +9,33 @@ export default {
       confirmPassword: '',
     }
   },
+  methods: {
+    onSubmit() {
+      /*
+        Отправляем данные на сервер. Как только сработает обработчик на форме
+        @submit сработает метод onSubmit.
+      */
+      const params = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log('User data:', params)
+    }
+  },
   validations: {
     email: {
       required,
       email,
+      uniqEmail(newEmail) {
+        if (newEmail === '') return true;
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const value = newEmail !== 'test@mail.ru'
+            resolve(value);
+          }, 1000)
+        })
+      },
     },
     password: {
       required,
@@ -20,45 +43,21 @@ export default {
     },
     confirmPassword: {
       required,
-      /*
-        Валидатор sameAs проверяет индентичность контролов.
-        В параметрах указываем такое же название как и выше ключ password для
-        валидации пароля.
-      */
       sameAs: sameAs('password'),
-      /*
-      Второй вариант как можно проверить в ручную. Обращаемся к инстансу Vue, т.е.
-      смотрим все пропсы данного компонента и там берем поля с date для валидации.
-      sameAs: sameAs((vue => {
-        console.log('sameAs:', vue)
-        return vue.password;
-      })),
-      */
     }
   },
 };
 
 /*
-  1. Пример как делать валидацияю полей в форме. Используем стандартное решение от
-  пакет Vuelidate подключенный как плагин.
-  Благодаря пакету в компоненете добавляется глобальное поле validations, где
-  перечислияем все переменные которые привязаны на инпутах через v-model в объекте.
-  К ключам приязываем объект с настройки конкретного поля и добавляем функции-валидаторы
-  которые необходимы для валидации поля. Функции-валидаторы импортим с пакета
-  2. Вторым шагом запускаем валидацию. Для этого вешаем на события blur через глобальную
-  переменную $v. В неё приходит параметры формы по валидации и каждого отдельного поля.
-  Запускаем метод $touch(), запускает валидацию.
-  3. Показ ошибок для поля email.
-  Добавляем динамический класс is-invalid в зависимости от поля $v.email.$error с
-  валидатора и показываем через условие сообщение о валидации поля с ошибкой.
-  Для показа в зависимости от типа ошибки, используем параметры валидации с объекта
-  настроект $v.email. Т.к пока мы валидируем только поле email.
+  Вешаем на кнопку атрибут disabled забаинденный на поле с пакета vuelidate,
+  в общем объекте с настройками валидации есть поле $v.$invalid которое отвечает
+  за валидна ли форма.
 */
 </script>
 
 <template>
   <div class="container">
-    <form class="pt-3">
+    <form class="pt-3" @submit.prevent="onSubmit">
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -74,6 +73,9 @@ export default {
         </div>
         <div class="invalid-feedback" v-if="!$v.email.email">
           This field should be an email.
+        </div>
+        <div class="invalid-feedback" v-if="!$v.email.newEmail">
+          This email is already exists.
         </div>
       </div>
 
@@ -110,6 +112,9 @@ export default {
           Confirm password must be identical
         </div>
       </div>
+      <button class="btn btn-success" type="submit"
+        :disabled="$v.$invalid"
+        >Submit form</button>
 
       <hr />
       <pre>
