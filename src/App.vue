@@ -1,40 +1,122 @@
 <script>
-import OneOff from './components/Oneoff.vue';
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   data() {
     return {
-      switched: false,
+      email: '',
+      password: '',
+      confirmPassword: '',
     }
   },
-  components: {
-    OneOff,
+  validations: {
+    email: {
+      required,
+      email,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+    confirmPassword: {
+      required,
+      /*
+        Валидатор sameAs проверяет индентичность контролов.
+        В параметрах указываем такое же название как и выше ключ password для
+        валидации пароля.
+      */
+      sameAs: sameAs('password'),
+      /*
+      Второй вариант как можно проверить в ручную. Обращаемся к инстансу Vue, т.е.
+      смотрим все пропсы данного компонента и там берем поля с date для валидации.
+      sameAs: sameAs((vue => {
+        console.log('sameAs:', vue)
+        return vue.password;
+      })),
+      */
+    }
   },
 };
 
 /*
-  Пример как сделать свой кастомный контрол через директиву.
-  Есть компонент, в который прокидывает флаг и по флагу меняет класс.
-  В самом компоненте, вешает обработчики и привязывает метод свой onChange
-  с прокинутым значением. В самом методе берем значение которое приходит
-  при клике и прокидывает в $emit на событие 'input' c новым аргументом.
-  Срабатывает ивент 'input' и по ивенту меняется значение переменно value в ивенте.
-  Т.к. директива v-model по-умолчанию прокидывает пропс с таким же название value.
-  то меняет своё value и переменную switched, которая привязана к директиве в родителе.
-  Для наглядности показываем изменение состояния компонента.
+  1. Пример как делать валидацияю полей в форме. Используем стандартное решение от
+  пакет Vuelidate подключенный как плагин.
+  Благодаря пакету в компоненете добавляется глобальное поле validations, где
+  перечислияем все переменные которые привязаны на инпутах через v-model в объекте.
+  К ключам приязываем объект с настройки конкретного поля и добавляем функции-валидаторы
+  которые необходимы для валидации поля. Функции-валидаторы импортим с пакета
+  2. Вторым шагом запускаем валидацию. Для этого вешаем на события blur через глобальную
+  переменную $v. В неё приходит параметры формы по валидации и каждого отдельного поля.
+  Запускаем метод $touch(), запускает валидацию.
+  3. Показ ошибок для поля email.
+  Добавляем динамический класс is-invalid в зависимости от поля $v.email.$error с
+  валидатора и показываем через условие сообщение о валидации поля с ошибкой.
+  Для показа в зависимости от типа ошибки, используем параметры валидации с объекта
+  настроект $v.email. Т.к пока мы валидируем только поле email.
 */
-
 </script>
 
 <template>
-  <div id="app">
-    <h2>Form inputs</h2>
-    <OneOff v-model="switched"></OneOff>
+  <div class="container">
+    <form class="pt-3">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          :class="{ 'is-invalid' : $v.email.$error}"
+          v-model="email"
+          @blur="$v.email.$touch()"
+        >
+        <div class="invalid-feedback" v-if="!$v.email.required">
+          Email field is required.
+        </div>
+        <div class="invalid-feedback" v-if="!$v.email.email">
+          This field should be an email.
+        </div>
+      </div>
 
-    <div>
-      <h3 v-if="switched">Component is enabled</h3>
-      <h3 v-else>Component is disabled</h3>
-    </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          :class="{ 'is-invalid' : $v.password.$error}"
+          v-model="password"
+          @blur="$v.password.$touch()"
+        >
+        <div class="invalid-feedback" v-if="!$v.password.required">
+          Password is required.
+        </div>
+        <div class="invalid-feedback" v-if="!$v.password.minLength">
+          Password must have at least {{ $v.password.$params.minLength.min }} letters.
+          Now it is {{ password.length }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          :class="{ 'is-invalid' : $v.confirmPassword.$error}"
+          v-model="confirmPassword"
+          @blur="$v.confirmPassword.$touch()"
+        >
+        <div class="invalid-feedback" v-if="!$v.password.required || !$v.confirmPassword.sameAs">
+          Confirm password must be identical
+        </div>
+      </div>
+
+      <hr />
+      <pre>
+       Описание объекта валидации для формы:
+       {{ $v }}
+      </pre>
+    </form>
   </div>
 </template>
 
@@ -44,4 +126,5 @@ export default {
     text-align: center;
     margin-top: 60px;
   }
+
 </style>
