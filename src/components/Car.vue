@@ -30,6 +30,18 @@ export default {
       console.log("Go to push router", this.$router);
       this.$router.push("/cars");
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log('beforeRouteLeave');
+    /*
+      Сделаем проверку когда пользователь хочет уйти со страницы, покажем
+      модальное окно.
+    */
+    if (window.confirm('Are you sure your want leave?')) {
+      next();
+    } else {
+      next(false);
+    }
   }
 };
 </script>

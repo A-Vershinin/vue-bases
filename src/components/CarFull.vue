@@ -17,6 +17,11 @@ export default {
       return this.$route.query.year;
     }
   },
+  // в компоненте глобально так же доступны хуки от роутера
+  beforeRouteEnter(toR, fromR, next) {
+    console.log('beforeRouteEnter');
+    next();
+  }
 }
 
 </script>
