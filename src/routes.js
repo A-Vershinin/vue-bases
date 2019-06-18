@@ -3,16 +3,18 @@ import HomePage from './components/Home.vue';
 import CarsPage from './components/Cars.vue';
 import Car from './components/Car.vue';
 import CarFull from './components/CarFull.vue';
+import ErrorPage from './components/Error.vue';
 
 export default new VueRouter({
   routes: [
     {
-      path: '', // localhost:8080
+      path: '/', // localhost:8080
       component: HomePage,
     },
     {
       path: '/cars', // localhost:8080/cars
       component: CarsPage,
+      name: 'cars'
     },
     {
       path: '/cars/:id', // cars/1
@@ -26,6 +28,27 @@ export default new VueRouter({
         },
       ]
     },
+    {
+      // Пример как сделать redirect на какой-то роут
+      path: '/none',
+      /*
+        Вариант когда простой редирект
+        redirect: '/cars',
+
+        или через объект и + имя именованного роута из поля name
+      */
+      redirect: {
+        name: 'cars',
+      }
+    },
+    {
+      /*
+        обрабатываем все роуты через * и при любом не совпадении кидаем
+        на страницу ErrorPage
+      */
+      path: '*',
+      component: ErrorPage,
+    }
   ],
   mode: 'history', // добавляем настройку чтобы убрать хеш с url-а роута,
   scrollBehavior: (to, from, savedPosition) => {
