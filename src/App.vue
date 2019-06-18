@@ -9,15 +9,7 @@ export default {
 
 
 <template>
-  <div id="app">
-    <div class="container">
-      <h1>Hello Vue!</h1>
-    </div>
+  <div class="container pt-5">
+    <h1>Hello Vue!</h1>
   </div>
 </template>
-
-<style>
-#app {
-  margin-top: 60px;
-}
-</style>
