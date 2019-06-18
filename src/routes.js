@@ -1,9 +1,25 @@
 import VueRouter from 'vue-router';
 import HomePage from './components/Home.vue';
-import CarsPage from './components/Cars.vue';
+// import CarsPage from './components/Cars.vue';
 import Car from './components/Car.vue';
 import CarFull from './components/CarFull.vue';
 import ErrorPage from './components/Error.vue';
+
+/*
+ Делаем lazy-loading компонентов по роутам. Пример страницы с CarsPage.
+ Убираем импорт компонента с файла с роутами. Будем импортить через require,
+ это позволяет сделать вебпак.
+ Метод ensure в глобальной переменной require принимает 2 аргумента, массив с
+ строкой пути где лежит компонент и колбек, который вызовится успешно после
+ успешной загрузки с аргументов require('имя пути компонента').
+ В network-е при переходе на роут /cars грузится отдельный файл 0.build.js
+*/
+const CarsPage = resolve => {
+  require.ensure(['./components/Cars.vue'], () => {
+    resolve(require('./components/Cars.vue'));
+  });
+}
+
 
 export default new VueRouter({
   routes: [
