@@ -1,11 +1,22 @@
-import Vue from 'vue'
-import Vuelidate from 'vuelidate'
-import App from './App.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-// С помощью метода user подключаем различные плагины,
-// vuelidate - фалидация форм
-Vue.use(Vuelidate)
+// Components
+import App from './App.vue';
+
+// Instruments
+import router from './routes';
+
+/*
+ Подключаем роутинг. Подключем как очередной плагин в глобальный scope экземпляра Vue
+ Добавляем в поле router экземпляр роута с настройками.
+ Для удобства вынесли в отдельный файл.
+*/
+
+// Plugins
+Vue.use(VueRouter)
 
 new Vue({
   render: h => h(App),
+  router
 }).$mount('#app')
