@@ -56,6 +56,9 @@ export default {
         </div>
       </nav>
 
+      <!-- /* Место где будут рендерится вложенные роуты*/ -->
+      <router-view></router-view>
+
 
     </div>
   </div>

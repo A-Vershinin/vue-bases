@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 
 // Instruments
+import 'bootstrap/dist/css/bootstrap.css';
 import router from './routes';
 
 /*

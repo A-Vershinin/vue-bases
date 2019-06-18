@@ -25,7 +25,13 @@ export default {
       console.log('toRoute:', toRoute)
       this.id = toRoute.params['id']
     }
-  }
+  },
+  methods: {
+    goBackToCars() {
+      console.log('Go to push router', this.$router);
+      this.$router.push('/cars');
+    },
+  },
 }
 
 </script>
@@ -33,5 +39,13 @@ export default {
 <template>
   <div class="car-item">
     <h3>Car id {{ this.id }}</h3>
+
+    <button
+      type="button"
+      class="btn btn-lg btn-info"
+      @click="goBackToCars"
+    >
+      Back
+    </button>
   </div>
 </template>
