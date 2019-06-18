@@ -1,14 +1,13 @@
 <script>
-
 export default {
   data() {
     // Пропсы с текущего роута для urla. глобальная системная переменная.
-    console.log('Router props dinamik:', this.$router.currentRoute);
+    console.log("Router props dinamik:", this.$router.currentRoute);
 
     return {
       // id: this.$router.currentRoute.params['id'],
-      id: this.$route.params['id'], // это тоже самое что через $router.currentRoute
-    }
+      id: this.$route.params["id"] // это тоже самое что через $router.currentRoute
+    };
   },
   watch: {
     /*
@@ -22,18 +21,17 @@ export default {
       toRoute.params.id
     */
     $route(toRoute, fromRoute) {
-      console.log('toRoute:', toRoute)
-      this.id = toRoute.params['id']
+      console.log("toRoute:", toRoute);
+      this.id = toRoute.params["id"];
     }
   },
   methods: {
     goBackToCars() {
-      console.log('Go to push router', this.$router);
-      this.$router.push('/cars');
-    },
-  },
-}
-
+      console.log("Go to push router", this.$router);
+      this.$router.push("/cars");
+    }
+  }
+};
 </script>
 
 <template>
@@ -42,10 +40,43 @@ export default {
 
     <button
       type="button"
-      class="btn btn-lg btn-info"
+      class="btn btn-lg btn-primary mb-2"
       @click="goBackToCars"
     >
       Back
     </button>
+    <br />
+    <!-- /**
+      Вариант 1.
+      Генерируем динамическую ссылку по id. Обязательно баиндим атрибут :to
+    **/ -->
+      <router-link
+        tag="button"
+        class="btn btn-lg btn-info mt-2"
+        :to="'/cars/' + id + '/info'"
+      >
+        Full info
+      </router-link>
+
+
+      <!-- /*
+        Вариант 2.
+        Делаем динамическую ссылку с помощью именнового роута.
+        Для этого в настройках роута добавляем имя роута и на ссылку в атрибут
+        to прокидываем объект с настройками, где 1й параметр имя роута на какой
+        перейти и параметры.
+
+      <router-link
+        tag="button"
+        class="btn btn-lg btn-info mt-2"
+        :to="{name: 'car-info', params: { id: id }}"
+      >
+        Full info
+      </router-link>
+      */ -->
+
+    <hr />
+    <!-- /* Указываем куда рендерим вложенные sub роуты */ -->
+    <router-view></router-view>
   </div>
 </template>
