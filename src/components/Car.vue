@@ -47,9 +47,6 @@ export default {
     </button>
     <br />
     <!-- /**
-      Вариант 1.
-      Генерируем динамическую ссылку по id. Обязательно баиндим атрибут :to
-    **/ -->
       <router-link
         tag="button"
         class="btn btn-lg btn-info mt-2"
@@ -57,23 +54,24 @@ export default {
       >
         Full info
       </router-link>
-
+      **/ -->
 
       <!-- /*
-        Вариант 2.
-        Делаем динамическую ссылку с помощью именнового роута.
-        Для этого в настройках роута добавляем имя роута и на ссылку в атрибут
-        to прокидываем объект с настройками, где 1й параметр имя роута на какой
-        перейти и параметры.
-
+      Помимо динамических параметров можем передать и qury параметры из урла по роуту
+      Данные из query будут в urle как /info?namae=Mazda&year=2015
+      */ -->
       <router-link
         tag="button"
         class="btn btn-lg btn-info mt-2"
-        :to="{name: 'car-info', params: { id: id }}"
+        :to="{
+          name: 'car-info',
+          params: { id: id },
+          query: { name: 'Mazda', year: 2015, }
+        }"
       >
         Full info
       </router-link>
-      */ -->
+
 
     <hr />
     <!-- /* Указываем куда рендерим вложенные sub роуты */ -->
