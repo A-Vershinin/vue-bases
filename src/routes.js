@@ -27,5 +27,33 @@ export default new VueRouter({
       ]
     },
   ],
-  mode: 'history', // добавляем настройку чтобы убрать хеш с url-а роута
+  mode: 'history', // добавляем настройку чтобы убрать хеш с url-а роута,
+  scrollBehavior: (to, from, savedPosition) => {
+    /*
+      В данной функции мы будем возвращать объект, который будет говорить
+      куда будем скролить страницу при переходе.
+      to - к какому роуту идем,
+      from - от какого роута идем
+      savedPosition -
+    */
+    console.log('route with scroll:', to);
+    console.log('----------------------');
+    console.log('savedPosition:', savedPosition);
+
+    if(savedPosition) {
+      // если хотим остатся на текущей позиции страницы после перехода
+      return savedPosition;
+    }
+
+    if (to.hash) {
+      // будем скролить до заголовка с id scroll
+      return { selector: to.hash }
+    }
+
+    // скролл по умолчанию в самый вверх страницы
+    return {
+      x: 0,
+      y: 0,
+    }
+  }
 })

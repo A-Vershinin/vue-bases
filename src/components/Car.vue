@@ -66,7 +66,8 @@ export default {
         :to="{
           name: 'car-info',
           params: { id: id },
-          query: { name: 'Mazda', year: 2015, }
+          query: { name: 'Mazda', year: 2015 },
+          hash: '#scroll',
         }"
       >
         Full info

@@ -26,5 +26,19 @@ export default {
     <h4>Car info: {{ $route.query.name }}</h4>
     <h5>Car year: {{ year }} </h5>
     <p>Lorem ipsum dolor sit amet, consectetur </p>
+
+    <hr />
+    <div class="scroll"></div>
+    <h6 id="scroll">Hello from the bottom!</h6>
+
+    <div class="scroll"></div>
   </div>
 </template>
+
+<style scoped>
+  .scroll {
+    width: 100px;
+    height: 2000px;
+    background-color: #ccc;
+  }
+</style>
