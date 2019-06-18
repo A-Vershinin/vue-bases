@@ -1,3 +1,19 @@
 {
-  "cars": [{ "name": "Ford" }]
+  "cars": [
+    {
+      "name": "Ford",
+      "year": 2018,
+      "id": 1
+    },
+    {
+      "name": "Mazda",
+      "year": 2015,
+      "id": 2
+    },
+    {
+      "name": "Ferrari",
+      "year": 2012,
+      "id": 3
+    }
+  ]
 }
