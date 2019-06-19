@@ -12,6 +12,10 @@ Vue.use(VueResource);
 const baseUrl = "http://localhost:3000/";
 
 Vue.http.options.root = baseUrl;
+Vue.http.interceptors.push((request) => {
+  console.log('INTERCEPTOR:', request);
+  request.headers.set('Auth', 'RANDOM-TOKEN: ' + Math.random());
+});
 
 new Vue({
   render: h => h(App),
