@@ -1,8 +1,11 @@
 <script>
 export default {
-  props: ["counter"],
-  data() {
-    return {};
+  computed: {
+    // ...mapState({
+    // }),
+    counter() {
+      return this.$store.state.counterStore.counter;
+    }
   }
 };
 </script>
