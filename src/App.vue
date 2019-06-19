@@ -1,5 +1,5 @@
 <script>
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:3000/";
 
 export default {
   data() {
@@ -18,10 +18,10 @@ export default {
 
       /*
         Пакет VueResource добавляет в глобальный scoupe системный объект this.$http.
-        Короткая запись - закомментировать запрос с this.$http и использовать this.resource
+        Для использования $resource - закомментировать запрос с this.$http.
       */
       this.$http
-        .post(`${baseUrl}/cars`, car)
+        .post(`${baseUrl}cars`, car)
         .then(response => {
           console.log("response:", response);
           return response.json();
@@ -33,7 +33,7 @@ export default {
     },
     onLoadCar() {
       // this.$http
-      //   .get(`${baseUrl}/cars`)
+      //   .get(`${baseUrl}cars`)
       //   .then(response => response.json())
       //   .then(cars => {
       //     console.log("Fetch cars:", cars);
@@ -55,7 +55,7 @@ export default {
       и с полным описанием от промиса, к примеру при POST запросе.
       Позвоялет сократить код.
     */
-    this.resource = this.$resource(`${baseUrl}/cars`);
+    this.resource = this.$resource('cars');
   }
 };
 </script>
