@@ -1,7 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
 
-Vue.config.productionTip = false
+// Instruments
+import 'bootstrap/dist/css/bootstrap.css';
+
+// Components
+import App from './App.vue';
 
 new Vue({
   render: h => h(App),
