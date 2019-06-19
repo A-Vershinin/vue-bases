@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "server": "node ./node_modules/json-server/lib/cli/bin.js --watch ./src/assets/db.json"
+    "server": "cross-env ./node_modules/json-server/lib/cli/bin.js --watch ./src/assets/db.json"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",

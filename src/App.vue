@@ -18,6 +18,7 @@ export default {
 
       /*
         Пакет VueResource добавляет в глобальный scoupe системный объект this.$http.
+        Короткая запись - закомментировать запрос с this.$http и использовать this.resource
       */
       this.$http
         .post(`${baseUrl}/cars`, car)
@@ -28,16 +29,33 @@ export default {
         .then(result => {
           console.log("result:", result);
         });
+      // this.resource.save({}, car);
     },
     onLoadCar() {
-      this.$http
-        .get(`${baseUrl}/cars`)
-        .then(response => response.json())
-        .then(cars => {
-          console.log("Fetch cars:", cars);
-          this.cars = cars;
-        });
+      // this.$http
+      //   .get(`${baseUrl}/cars`)
+      //   .then(response => response.json())
+      //   .then(cars => {
+      //     console.log("Fetch cars:", cars);
+      //     this.cars = cars;
+      //   });
+        this.resource.get()
+          .then(response => response.json())
+          .then(cars => {
+            console.log("Fetch cars:", cars);
+            this.cars = cars;
+          });
     }
+  },
+  created() {
+    /*
+      Пакет VueResource имеет еще одну глобальную переменную, которая хранит в
+      себе url c запросом сущности для удобства работы при CRUD операциях. Есть
+      в доке список экшенов-обёрток которые вызывая получаем такой же результат как
+      и с полным описанием от промиса, к примеру при POST запросе.
+      Позвоялет сократить код.
+    */
+    this.resource = this.$resource(`${baseUrl}/cars`);
   }
 };
 </script>
