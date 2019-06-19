@@ -1,29 +1,29 @@
 <script>
-import BaseExample from './components/BaseExample.vue';
-
+import Counter from "./components/Counter.vue";
+import Actions from "./components/Actions.vue";
 
 export default {
   data() {
     return {
-
-    }
+      counter: 0
+    };
   },
   components: {
-    BaseExample,
-  },
-}
+    Counter,
+    Actions
+  }
+};
 </script>
 
 <template>
   <div id="app">
-    <div class="container">
-      <BaseExample />
+    <div class="container text-center mt-5">
+      <Counter :counter="counter" />
+      <Actions
+        @counterUpdated="counter += $event"
+      />
     </div>
   </div>
 </template>
 
-<style>
-#app {
-  margin-top: 60px;
-}
-</style>
+<style></style>
