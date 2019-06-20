@@ -6,7 +6,7 @@ export default {
   methods: {
     updateCounterLocal(value) {
       // this.$emit('counterUpdated', value);
-      console.log('methods:', this.$store)
+      // console.log('methods:', this.$store)
 
       // Мутируем counter напрямую в store
       // this.$store.state.counterStore.counter += value;

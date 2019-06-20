@@ -8,6 +8,11 @@ const counter = {
       firstName: "Jon"
     }
   },
+  getters: {
+    computedCounter: state => {
+      return state.counter * (7-3);
+    }
+  },
   mutations: {
     [UPDATE_COUNTER_SYNC]: (state, payload) => {
       const counter = (state.counter += payload);
