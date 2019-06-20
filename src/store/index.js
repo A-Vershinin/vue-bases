@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import createLogger from 'vuex/dist/logger';
+import createLogger from 'vuex/dist/logger';
 import counterStore from './counters';
 
 Vue.use(Vuex);
@@ -13,7 +13,7 @@ const plagins = [];
 if (isDevelopment) {
   console.log('isDevelopment:', isDevelopment);
   console.log('-----------------------');
-  // plagins.push(createLogger());
+  plagins.push(createLogger());
 }
 
 export default new Vuex.Store({
